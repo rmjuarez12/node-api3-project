@@ -16,7 +16,7 @@ Follow these steps to set up and work on your project:
 
 ### Task 2: Minimum Viable Product
 
-- [ ] Write four custom `middleware` functions detailed below, in `api/middleware/middleware.js`.
+- [ ] Write five custom `middleware` functions detailed below, in `api/middleware/middleware.js`.
 - Complete the endpoints inside `api/posts/posts-router.js` and `api/users/users-router.js`.
 - There are endpoints in `users-router.js` to retrieve the list of `posts` by a `user` and to store a new `post` for a `user`.
 
@@ -27,14 +27,14 @@ Follow these steps to set up and work on your project:
   - `logger` logs to the console the following information about each request: request method, request url, and a timestamp
   - this middleware runs on every request made to the API
 
-- `validateUserId()`
+- [x] `validateUserId()`
 
   - this middleware will be used for all user endpoints that include an `id` parameter in the url (ex: `/api/users/:id` and it should check the database to make sure there is a user with that id.
 
   - if the `id` parameter is valid, store the user object as `req.user` and allow the request to continue
   - if the `id` parameter does not match any user id in the database, respond with status `404` and `{ message: "user not found" }`
 
-- `validateUser()`
+- [x] `validateUser()`
 
   - `validateUser` validates the `body` on a request to create or update a user
   - if the request `body` is missing, respond with status `400` and `{ message: "missing user data" }`
