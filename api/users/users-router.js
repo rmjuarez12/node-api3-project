@@ -2,8 +2,9 @@
 const express = require("express");
 const router = express.Router();
 
-//* Import the user model
+//* Import Models
 const User = require("./users-model");
+const Post = require("../posts/posts-model");
 
 //* Import Middlewares
 const getMiddlewares = require("../middleware/middleware");
@@ -73,11 +74,26 @@ router.put(
   }
 );
 
-router.post("/:id/posts", getMiddlewares.validateUserId(User), (req, res) => {
-  // do your magic!
-  // this needs a middleware to verify user id
-  // and another middleware to check that the request body is valid
-});
+router.post(
+  "/:id/posts",
+  [getMiddlewares.validateUserId(User), getMiddlewares.validatePost],
+  (req, res) => {
+    const userId = req.params.id;
+
+    const newPost = {
+      text: req.body.text,
+      user_id: userId,
+    };
+
+    Post.insert(newPost)
+      .then((response) => {
+        res.status(201).json(response);
+      })
+      .catch((err) => {
+        res.status(500).json(err);
+      });
+  }
+);
 
 // GET - Get all posts from a specific user
 router.get("/:id/posts", getMiddlewares.validateUserId(User), (req, res) => {

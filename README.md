@@ -46,7 +46,7 @@ Follow these steps to set up and work on your project:
   - if the `id` parameter is valid, store the post object as `req.post` and allow the request to continue
   - if the `id` parameter does not match any post id in the database, respond with status `404` and `{ message: "post not found" }`
 
-- `validatePost()`
+- [x] `validatePost()`
 
   - `validatePost` validates the `body` on a request to create a new post
   - if the request `body` is missing, respond with status `400` and `{ message: "missing post data" }`

@@ -3,7 +3,7 @@ const express = require("express");
 const { mountpath } = require("../server");
 const router = express.Router();
 
-//* Import the Posts model
+//* Import Models
 const Post = require("./posts-model");
 
 //* Import Middlewares
@@ -25,8 +25,15 @@ router.get("/:id", getMiddlewares.validatePostId(Post), (req, res) => {
 });
 
 router.delete("/:id", getMiddlewares.validatePostId(Post), (req, res) => {
-  // do your magic!
-  // this needs a middleware to verify post id
+  const post = req.post;
+
+  Post.remove(post.id)
+    .then(() => {
+      res.status(200).json({ message: "Post has been deleted!" });
+    })
+    .catch((err) => {
+      res.status(500).json(err);
+    });
 });
 
 router.put("/:id", getMiddlewares.validatePostId(Post), (req, res) => {

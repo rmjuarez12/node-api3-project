@@ -70,9 +70,17 @@ const validatePostId = (postModel) => (req, res, next) => {
     });
 };
 
-function validatePost(req, res, next) {
-  // do your magic!
-}
+const validatePost = (req, res, next) => {
+  if (!req.body || Object.keys(req.body).length === 0) {
+    res.status(400).json({ message: "missing post data" });
+  } else if (!req.body.text || req.body.text === "") {
+    res.status(400).json({
+      message: "missing required text field, or text field may be empty",
+    });
+  } else {
+    next();
+  }
+};
 
 //* Export all modules
 module.exports = {
@@ -80,4 +88,5 @@ module.exports = {
   validateUserId,
   validateUser,
   validatePostId,
+  validatePost,
 };
