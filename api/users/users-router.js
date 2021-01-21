@@ -39,16 +39,39 @@ router.get("/:id", getMiddlewares.validateUserId(User), (req, res) => {
   res.status(200).json(req.user);
 });
 
+// DELETE - Delete a specific user
 router.delete("/:id", getMiddlewares.validateUserId(User), (req, res) => {
-  // do your magic!
-  // this needs a middleware to verify user id
+  const user = req.user;
+
+  User.remove(user.id)
+    .then(() => {
+      res
+        .status(200)
+        .json({ message: `The user ${user.name} has been removed` });
+    })
+    .catch((err) => {
+      res.status(500).json(err);
+    });
 });
 
-router.put("/:id", getMiddlewares.validateUserId(User), (req, res) => {
-  // do your magic!
-  // this needs a middleware to verify user id
-  // and another middleware to check that the request body is valid
-});
+// PUT - Update a specific user's data
+router.put(
+  "/:id",
+  [getMiddlewares.validateUserId(User), getMiddlewares.validateUser],
+  (req, res) => {
+    const user = req.user;
+
+    User.update(user.id, req.body)
+      .then(() => {
+        res.status(200).json({
+          message: `The user ${user.name}'s name has been updated to ${req.body.name}`,
+        });
+      })
+      .catch((err) => {
+        res.status(500).json(err);
+      });
+  }
+);
 
 router.post("/:id/posts", getMiddlewares.validateUserId(User), (req, res) => {
   // do your magic!
@@ -56,9 +79,17 @@ router.post("/:id/posts", getMiddlewares.validateUserId(User), (req, res) => {
   // and another middleware to check that the request body is valid
 });
 
+// GET - Get all posts from a specific user
 router.get("/:id/posts", getMiddlewares.validateUserId(User), (req, res) => {
-  // do your magic!
-  // this needs a middleware to verify user id
+  const user = req.user;
+
+  User.getUserPosts(user.id)
+    .then((posts) => {
+      res.status(200).json(posts);
+    })
+    .catch((err) => {
+      res.status(500).json(err);
+    });
 });
 
 //* Export the module
