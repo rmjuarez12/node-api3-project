@@ -1,6 +1,5 @@
 //* Import express and setup router
 const express = require("express");
-const { mountpath } = require("../server");
 const router = express.Router();
 
 //* Import Models
@@ -36,10 +35,22 @@ router.delete("/:id", getMiddlewares.validatePostId(Post), (req, res) => {
     });
 });
 
-router.put("/:id", getMiddlewares.validatePostId(Post), (req, res) => {
-  // do your magic!
-  // this needs a middleware to verify post id
-});
+router.put(
+  "/:id",
+  [getMiddlewares.validatePostId(Post), getMiddlewares.validatePost],
+  (req, res) => {
+    const postID = req.params.id;
+    const editedData = req.body;
+
+    Post.update(postID, editedData)
+      .then(() => {
+        res.status(200).json({ message: "Post has been edited successfully!" });
+      })
+      .catch((err) => {
+        res.status(500).json(err);
+      });
+  }
+);
 
 //* Export the router
 module.exports = router;

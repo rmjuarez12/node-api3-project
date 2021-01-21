@@ -16,9 +16,9 @@ Follow these steps to set up and work on your project:
 
 ### Task 2: Minimum Viable Product
 
-- [ ] Write five custom `middleware` functions detailed below, in `api/middleware/middleware.js`.
-- Complete the endpoints inside `api/posts/posts-router.js` and `api/users/users-router.js`.
-- There are endpoints in `users-router.js` to retrieve the list of `posts` by a `user` and to store a new `post` for a `user`.
+- [x] Write five custom `middleware` functions detailed below, in `api/middleware/middleware.js`.
+- [x] Complete the endpoints inside `api/posts/posts-router.js` and `api/users/users-router.js`.
+- [x] There are endpoints in `users-router.js` to retrieve the list of `posts` by a `user` and to store a new `post` for a `user`.
 
 #### Custom Middleware Requirements
 
