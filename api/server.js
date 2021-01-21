@@ -9,9 +9,13 @@ server.use(express.json());
 const getMiddlewares = require("./middleware/middleware");
 server.use(getMiddlewares.logger);
 
-//* Import and setup Routers
+//* Import Routers
 const UserRouter = require("./users/users-router");
+const PostRouter = require("./posts/posts-router");
+
+//* Setup routers to use
 server.use("/api/users", UserRouter);
+server.use("/api/posts", PostRouter);
 
 server.get("/", (req, res) => {
   res.send(`<h2>Let's write some middleware!</h2>`);

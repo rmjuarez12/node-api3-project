@@ -50,9 +50,25 @@ const validateUser = (req, res, next) => {
   }
 };
 
-function validatePostId(req, res, next) {
-  // do your magic!
-}
+const validatePostId = (postModel) => (req, res, next) => {
+  const { id } = req.params;
+
+  postModel
+    .getById(id)
+    .then((post) => {
+      if (post) {
+        req.post = post;
+        next();
+      } else {
+        res
+          .status(404)
+          .json({ message: `There is no post with ID ${id} in the database` });
+      }
+    })
+    .catch((err) => {
+      res.status(500).json(err);
+    });
+};
 
 function validatePost(req, res, next) {
   // do your magic!
@@ -63,4 +79,5 @@ module.exports = {
   logger,
   validateUserId,
   validateUser,
+  validatePostId,
 };

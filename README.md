@@ -40,10 +40,9 @@ Follow these steps to set up and work on your project:
   - if the request `body` is missing, respond with status `400` and `{ message: "missing user data" }`
   - if the request `body` lacks the required `name` field, respond with status `400` and `{ message: "missing required name field" }`
 
-- `validatePostId()`
+- [x] `validatePostId()`
 
   - this middleware will be used for all post endpoints that include an `id` parameter in the url (ex: `/api/posts/:id` and it should check the database to make sure there is a post with that id.
-
   - if the `id` parameter is valid, store the post object as `req.post` and allow the request to continue
   - if the `id` parameter does not match any post id in the database, respond with status `404` and `{ message: "post not found" }`
 
