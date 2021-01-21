@@ -1,12 +1,15 @@
-const express = require('express');
-
+//* Import and setup the server
+const express = require("express");
 const server = express();
 
-// remember express by default cannot parse JSON in request bodies
+//* Ensure to use the json parse middleware
+server.use(express.json());
 
-// global middlewares and routes need to be connected here
+//* Import and use other global middlewares
+const getMiddlewares = require("./middleware/middleware");
+server.use(getMiddlewares.logger);
 
-server.get('/', (req, res) => {
+server.get("/", (req, res) => {
   res.send(`<h2>Let's write some middleware!</h2>`);
 });
 
